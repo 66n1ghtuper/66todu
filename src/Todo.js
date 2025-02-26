@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Todo.css';
 import Header from './Header'; 
 
@@ -6,6 +6,17 @@ const TodoApp = () => {
     const [inputValue, setInputValue] = useState('');
     const [taskList, setTaskList] = useState([]);
     const [currentFilter, setCurrentFilter] = useState('all'); 
+
+    useEffect(() => {
+        const savedTasks = JSON.parse(localStorage.getItem('tasks'));
+        if (savedTasks) {
+            setTaskList(savedTasks);
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('tasks', JSON.stringify(taskList));
+    }, [taskList]);
 
     const handleAddTask = () => {
         if (inputValue.trim()) {
@@ -43,7 +54,6 @@ const TodoApp = () => {
         }
     };
 
-   
     const remainingTasksCount = taskList.filter(task => !task.completed).length;
 
     return (
