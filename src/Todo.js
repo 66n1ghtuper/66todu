@@ -31,19 +31,20 @@ const TodoApp = () => {
         setTaskList(remainingTasks);
     };
 
-   
     const getFilteredTasks = taskList.filter(task => {
         if (currentFilter === 'completed') return task.completed;
         if (currentFilter === 'incomplete') return !task.completed;
         return true; 
     });
 
-
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
             handleAddTask();
         }
     };
+
+   
+    const remainingTasksCount = taskList.filter(task => !task.completed).length;
 
     return (
         <div className="todo">
@@ -73,14 +74,21 @@ const TodoApp = () => {
                     </li>
                 ))}
             </ul>
-         
-            {(currentFilter === 'completed' || currentFilter === 'all') && (
-                <button onClick={handleClearCompleted} className="clear">
-                    Очистить выполненные
-                </button>
-            )}
+
+            <div className="footer">
+                {(currentFilter === 'completed' || currentFilter === 'all') && (
+                    <button onClick={handleClearCompleted} className="clear">
+                        Очистить выполненные
+                    </button>
+                )}
+              
+                <div className="remaining-tasks">
+                    Задач: {remainingTasksCount}
+                </div>
+            </div>
         </div>
     );
 };
 
 export default TodoApp;
+
