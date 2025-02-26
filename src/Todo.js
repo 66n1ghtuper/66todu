@@ -82,7 +82,7 @@ const TodoApp = () => {
                     </button>
                 )}
               
-                <div className="remaining-tasks">
+                <div className="tasks">
                     Задач: {remainingTasksCount}
                 </div>
             </div>
